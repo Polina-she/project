@@ -19,8 +19,8 @@ def random_number(update, context):
         update.message.reply_text("Пожалуйста, введите целые числа.")
 
 def main():
-    # Создаем экземпляр Updater, передаем ему токен бота
-    updater = Updater("6873297966:AAGbCkdavJ39YE2VKqOUIWuGT8PPPSwbUpo", True)
+    # Создаем экземпляр Updater а потом передаем ему токен бота
+    updater = Updater("6873297966:AAGbCkdavJ39YE2VKqOUIWuGT8PPPSwbUpo", use_context=True)
 
     # Получаем диспетчер для регистрации обработчиков команд
     dp = updater.dispatcher
@@ -36,3 +36,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
