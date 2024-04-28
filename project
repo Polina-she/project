@@ -1,0 +1,38 @@
+import random
+from telegram.ext import Updater, CommandHandler
+
+# Функция для обработки команды /random
+def random_number(update, context):
+    if len(context.args) != 2:
+        update.message.reply_text("Используйте команду в формате /random [минимальное число] [максимальное число], например: /random 1 100")
+        return
+
+    try:
+        min_number = int(context.args[0])
+        max_number = int(context.args[1])
+        if min_number >= max_number:
+            update.message.reply_text("Минимальное число должно быть меньше максимального числа.")
+            return
+        random_num = random.randint(min_number, max_number)
+        update.message.reply_text(f"Случайное число в диапазоне от {min_number} до {max_number}: {random_num}")
+    except ValueError:
+        update.message.reply_text("Пожалуйста, введите целые числа.")
+
+def main():
+    # Создаем экземпляр Updater, передаем ему токен бота
+    updater = Updater("6873297966:AAGbCkdavJ39YE2VKqOUIWuGT8PPPSwbUpo", True)
+
+    # Получаем диспетчер для регистрации обработчиков команд
+    dp = updater.dispatcher
+
+    # Регистрируем обработчик команды /random
+    dp.add_handler(CommandHandler("random", random_number))
+
+    # Запускаем бота
+    updater.start_polling()
+
+    # Останавливаем бота при нажатии Ctrl+C
+    updater.idle()
+
+if __name__ == '__main__':
+    main()
